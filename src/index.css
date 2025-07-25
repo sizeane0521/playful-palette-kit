@@ -8,35 +8,80 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* 主要品牌色 */
+    --primary-orange: 25 96% 53%;
+    --light-orange: 25 78% 92%;
+    --highlight-yellow: 48 100% 88%;
+    
+    /* 輔助色 */
+    --accent-blue: 205 85% 90%;
+    --teal-section: 198 41% 41%;
+    --soft-pink: 0 100% 94%;
+    
+    /* 中性色 */
+    --white: 0 0% 100%;
+    --off-white: 36 100% 98%;
+    
+    /* 語意色 */
+    --success-green: 122 39% 49%;
+    --warning-yellow: 45 100% 51%;
+    --error-red: 4 90% 58%;
+    --info-blue: 207 90% 54%;
+    
+    /* 文字色 */
+    --text-black: 0 0% 20%;
+    --text-gray: 0 0% 48%;
+    
+    /* 設計系統映射 */
+    --background: var(--white);
+    --foreground: var(--text-black);
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: var(--white);
+    --card-foreground: var(--text-black);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: var(--white);
+    --popover-foreground: var(--text-black);
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--primary-orange);
+    --primary-foreground: var(--white);
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: var(--light-orange);
+    --secondary-foreground: var(--text-black);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: var(--light-orange);
+    --muted-foreground: var(--text-gray);
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: var(--accent-blue);
+    --accent-foreground: var(--text-black);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: var(--error-red);
+    --destructive-foreground: var(--white);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 25 20% 88%;
+    --input: 25 20% 88%;
+    --ring: var(--primary-orange);
 
     --radius: 0.5rem;
+    
+    /* 陰影系統 */
+    --shadow-light: 0px 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-heavy: 0px 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-extra-heavy: 0px 16px 48px rgba(0, 0, 0, 0.16);
+    
+    /* 間距系統 */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 48px;
+    --spacing-xxxl: 64px;
+    
+    /* 動畫 */
+    --transition-fast: 150ms ease-out;
+    --transition-normal: 250ms ease-in-out;
+    --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 

@@ -18,12 +18,32 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'poppins': ['Poppins', 'sans-serif'],
+				'montserrat': ['Montserrat', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				
+				// 品牌色系
+				'primary-orange': 'hsl(var(--primary-orange))',
+				'light-orange': 'hsl(var(--light-orange))',
+				'highlight-yellow': 'hsl(var(--highlight-yellow))',
+				'accent-blue': 'hsl(var(--accent-blue))',
+				'teal-section': 'hsl(var(--teal-section))',
+				'soft-pink': 'hsl(var(--soft-pink))',
+				'text-black': 'hsl(var(--text-black))',
+				'text-gray': 'hsl(var(--text-gray))',
+				'success-green': 'hsl(var(--success-green))',
+				'warning-yellow': 'hsl(var(--warning-yellow))',
+				'error-red': 'hsl(var(--error-red))',
+				'info-blue': 'hsl(var(--info-blue))',
+				'off-white': 'hsl(var(--off-white))',
+				
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -62,6 +82,26 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			boxShadow: {
+				'light': 'var(--shadow-light)',
+				'medium': 'var(--shadow-medium)',
+				'heavy': 'var(--shadow-heavy)',
+				'extra-heavy': 'var(--shadow-extra-heavy)',
+			},
+			spacing: {
+				'xs': 'var(--spacing-xs)',
+				'sm': 'var(--spacing-sm)',
+				'md': 'var(--spacing-md)',
+				'lg': 'var(--spacing-lg)',
+				'xl': 'var(--spacing-xl)',
+				'xxl': 'var(--spacing-xxl)',
+				'xxxl': 'var(--spacing-xxxl)',
+			},
+			transitionDuration: {
+				'fast': '150ms',
+				'normal': '250ms',
+				'slow': '300ms',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

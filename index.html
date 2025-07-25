@@ -1,27 +1,1421 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="zh-TW">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>兒童學習平台設計規範</title>
     <meta name="description" content="兒童學習平台設計系統展示" />
     <meta name="author" content="Manus AI" />
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <meta property="og:title" content="playful-palette-kit" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+        /* CSS Variables - Design System */
+        :root {
+            /* 主要品牌色 */
+            --primary-orange: 25 96% 53%;
+            --light-orange: 25 78% 92%;
+            --highlight-yellow: 48 100% 88%;
+            
+            /* 輔助色 */
+            --accent-blue: 205 85% 90%;
+            --teal-section: 198 41% 41%;
+            --soft-pink: 0 100% 94%;
+            
+            /* 中性色 */
+            --white: 0 0% 100%;
+            --off-white: 36 100% 98%;
+            
+            /* 語意色 */
+            --success-green: 122 39% 49%;
+            --warning-yellow: 45 100% 51%;
+            --error-red: 4 90% 58%;
+            --info-blue: 207 90% 54%;
+            
+            /* 文字色 */
+            --text-black: 0 0% 20%;
+            --text-gray: 0 0% 48%;
+            
+            /* 陰影系統 */
+            --shadow-light: 0px 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-medium: 0px 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-heavy: 0px 8px 24px rgba(0, 0, 0, 0.12);
+            
+            /* 間距系統 */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 48px;
+            --spacing-xxxl: 64px;
+            
+            /* 動畫 */
+            --transition-fast: 150ms ease-out;
+            --transition-normal: 250ms ease-in-out;
+            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+        /* Base Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: hsl(var(--off-white));
+            color: hsl(var(--text-black));
+            line-height: 1.5;
+        }
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            color: hsl(var(--text-black));
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.75rem; }
+        h4 { font-size: 1.5rem; }
+        h5 { font-size: 1.25rem; }
+        h6 { font-size: 1.125rem; }
+
+        @media (min-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.25rem; }
+            h3 { font-size: 2rem; }
+        }
+
+        @media (min-width: 1024px) {
+            h1 { font-size: 3.75rem; }
+            h2 { font-size: 2.5rem; }
+            h3 { font-size: 2.25rem; }
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+        @media (min-width: 768px) {
+            .md\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .md\\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .lg\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .lg\\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        }
+
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .flex-col { flex-direction: column; }
+        .space-x-4 > * + * { margin-left: 1rem; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-6 > * + * { margin-top: 1.5rem; }
+        .space-y-8 > * + * { margin-top: 2rem; }
+
+        .text-center { text-align: center; }
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mt-16 { margin-top: 4rem; }
+
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+        .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-xl { border-radius: 0.75rem; }
+
+        /* Color Classes */
+        .bg-white { background-color: hsl(var(--white)); }
+        .bg-off-white { background-color: hsl(var(--off-white)); }
+        .bg-primary-orange { background-color: hsl(var(--primary-orange)); }
+        .bg-light-orange { background-color: hsl(var(--light-orange)); }
+        .bg-highlight-yellow { background-color: hsl(var(--highlight-yellow)); }
+        .bg-accent-blue { background-color: hsl(var(--accent-blue)); }
+        .bg-teal-section { background-color: hsl(var(--teal-section)); }
+        .bg-soft-pink { background-color: hsl(var(--soft-pink)); }
+        .bg-success-green { background-color: hsl(var(--success-green)); }
+        .bg-warning-yellow { background-color: hsl(var(--warning-yellow)); }
+        .bg-error-red { background-color: hsl(var(--error-red)); }
+        .bg-info-blue { background-color: hsl(var(--info-blue)); }
+
+        .text-white { color: white; }
+        .text-text-black { color: hsl(var(--text-black)); }
+        .text-text-gray { color: hsl(var(--text-gray)); }
+        .text-primary-orange { color: hsl(var(--primary-orange)); }
+        .text-success-green { color: hsl(var(--success-green)); }
+        .text-error-red { color: hsl(var(--error-red)); }
+        .text-info-blue { color: hsl(var(--info-blue)); }
+
+        /* Shadows */
+        .shadow-light { box-shadow: var(--shadow-light); }
+        .shadow-medium { box-shadow: var(--shadow-medium); }
+
+        /* Card Component */
+        .card {
+            background-color: hsl(var(--white));
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-light);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem 1.5rem 0;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: hsl(var(--text-black));
+            margin-bottom: 0.5rem;
+        }
+
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: hsl(var(--primary-orange));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: hsl(var(--primary-orange) / 0.9);
+        }
+
+        .btn-secondary {
+            background-color: hsl(var(--light-orange));
+            color: hsl(var(--text-black));
+        }
+
+        .btn-secondary:hover {
+            background-color: hsl(var(--light-orange) / 0.8);
+        }
+
+        .btn-small {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        .btn-large {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* Badge Component */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background-color: hsl(var(--light-orange));
+            color: hsl(var(--text-black));
+        }
+
+        .badge-success {
+            background-color: hsl(var(--success-green));
+            color: white;
+        }
+
+        /* Tab System */
+        .tab-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.25rem;
+            background-color: hsl(var(--white));
+            padding: 0.25rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-light);
+        }
+
+        @media (min-width: 768px) {
+            .tab-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .tab-list {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        .tab-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 0.375rem;
+            transition: all var(--transition-normal);
+            color: hsl(var(--text-gray));
+        }
+
+        .tab-button.active {
+            background-color: hsl(var(--primary-orange));
+            color: white;
+        }
+
+        .tab-button:hover:not(.active) {
+            background-color: hsl(var(--light-orange));
+        }
+
+        .tab-content {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, hsl(var(--light-orange)), hsl(var(--highlight-yellow)), hsl(var(--accent-blue)));
+            padding: 4rem 0;
+        }
+
+        /* Header */
+        .header {
+            background-color: hsl(var(--white));
+            box-shadow: var(--shadow-light);
+            border-bottom: 1px solid hsl(var(--light-orange));
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: hsl(var(--primary-orange));
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            margin-left: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: hsl(var(--text-black));
+        }
+
+        .version-text {
+            font-size: 0.875rem;
+            color: hsl(var(--text-gray));
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background-color: hsl(var(--teal-section));
+            padding: 3rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .stat-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        .stat-label {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-description {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: hsl(var(--white));
+            border-top: 1px solid hsl(var(--light-orange));
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .icon-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .icon-lg {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.5rem; }
+            
+            .hero {
+                padding: 2rem 0;
+            }
+            
+            .py-12 {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+        }
+
+        /* Color Cards */
+        .color-card {
+            background-color: hsl(var(--white));
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-light);
+            overflow: hidden;
+        }
+
+        .color-preview {
+            height: 6rem;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 1rem;
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: hsl(var(--text-black));
+            margin-bottom: 0.5rem;
+        }
+
+        .color-values {
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .color-usage {
+            color: hsl(var(--text-gray));
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Principle Cards */
+        .principle-card {
+            background-color: hsl(var(--white));
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-light);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+
+        .principle-card:hover {
+            box-shadow: var(--shadow-medium);
+        }
+
+        .principle-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            transition: transform var(--transition-normal);
+        }
+
+        .principle-card:hover .principle-icon {
+            transform: scale(1.1);
+        }
+
+        .principle-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: hsl(var(--text-black));
+            margin-bottom: 0.5rem;
+        }
+
+        .principle-subtitle {
+            font-size: 0.75rem;
+            background-color: hsl(var(--light-orange));
+            color: hsl(var(--text-black));
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .principle-description {
+            color: hsl(var(--text-gray));
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .principle-details {
+            text-align: left;
+        }
+
+        .principle-details h4 {
+            font-weight: 500;
+            color: hsl(var(--text-black));
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .principle-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .principle-details li {
+            font-size: 0.75rem;
+            color: hsl(var(--text-gray));
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+
+        .principle-details li::before {
+            content: '';
+            width: 0.375rem;
+            height: 0.375rem;
+            background-color: hsl(var(--primary-orange));
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .border-gray-200 {
+            border: 1px solid hsl(var(--light-orange));
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="book-open" class="icon text-white"></i>
+                </div>
+                <div>
+                    <div class="logo-text">兒童學習平台</div>
+                    <div class="version-text">設計系統規範</div>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="badge badge-success">v1.0.0</div>
+                <button class="btn btn-primary">
+                    <i data-lucide="code" class="icon-sm" style="margin-right: 0.5rem;"></i>
+                    查看代碼
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container text-center">
+            <div style="max-width: 64rem; margin: 0 auto;">
+                <h1 class="mb-6">
+                    兒童學習平台
+                    <span style="display: block; color: hsl(var(--primary-orange));">設計系統規範</span>
+                </h1>
+                <p class="text-xl text-text-gray mb-8" style="line-height: 1.6;">
+                    為兒童學習體驗而設計的完整設計系統，
+                    包含色彩、字體、組件和交互規範，確保一致性和可用性。
+                </p>
+                <div class="flex flex-col space-y-4" style="align-items: center;">
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                        <button class="btn btn-primary btn-large" onclick="setActiveTab('principles')">
+                            <i data-lucide="target" class="icon-sm" style="margin-right: 0.5rem;"></i>
+                            開始探索
+                        </button>
+                        <button class="btn btn-secondary btn-large">
+                            <i data-lucide="eye" class="icon-sm" style="margin-right: 0.5rem;"></i>
+                            查看範例
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">設計原則</div>
+                    <div class="stat-description">核心設計原則</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">12+</div>
+                    <div class="stat-label">色彩變體</div>
+                    <div class="stat-description">品牌與語意色彩</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">20+</div>
+                    <div class="stat-label">組件類型</div>
+                    <div class="stat-description">可重用UI組件</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">響應式</div>
+                    <div class="stat-description">支援設備類型</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container py-12">
+        <!-- Tab Navigation -->
+        <div class="mb-8">
+            <div class="tab-list">
+                <button class="tab-button active" onclick="setActiveTab('principles')" data-tab="principles">
+                    <i data-lucide="target" class="icon mb-2"></i>
+                    <span style="font-size: 0.75rem; font-weight: 500;">設計原則</span>
+                </button>
+                <button class="tab-button" onclick="setActiveTab('colors')" data-tab="colors">
+                    <i data-lucide="palette" class="icon mb-2"></i>
+                    <span style="font-size: 0.75rem; font-weight: 500;">色彩系統</span>
+                </button>
+                <button class="tab-button" onclick="setActiveTab('typography')" data-tab="typography">
+                    <i data-lucide="type" class="icon mb-2"></i>
+                    <span style="font-size: 0.75rem; font-weight: 500;">字體排版</span>
+                </button>
+                <button class="tab-button" onclick="setActiveTab('buttons')" data-tab="buttons">
+                    <i data-lucide="mouse-pointer" class="icon mb-2"></i>
+                    <span style="font-size: 0.75rem; font-weight: 500;">按鈕組件</span>
+                </button>
+                <button class="tab-button" onclick="setActiveTab('forms')" data-tab="forms">
+                    <i data-lucide="layout" class="icon mb-2"></i>
+                    <span style="font-size: 0.75rem; font-weight: 500;">表單輸入</span>
+                </button>
+                <button class="tab-button" onclick="setActiveTab('navigation')" data-tab="navigation">
+                    <i data-lucide="layers" class="icon mb-2"></i>
+                    <span style="font-size: 0.75rem; font-weight: 500;">導航組件</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tab Contents -->
+        
+        <!-- Design Principles Tab -->
+        <div id="principles" class="tab-content active">
+            <div class="space-y-8">
+                <!-- Design Principles Overview -->
+                <div class="text-center" style="max-width: 64rem; margin: 0 auto;">
+                    <h2 class="mb-4">設計原則 Design Principles</h2>
+                    <p class="text-lg text-text-gray" style="line-height: 1.6;">
+                        為確保設計系統的一致性和有效性，我們遵循以下核心原則，
+                        致力於創造以兒童為中心的優質學習體驗。
+                    </p>
+                </div>
+
+                <!-- Core Principles -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="principle-card">
+                        <div class="principle-icon bg-soft-pink">
+                            <i data-lucide="heart" class="icon-lg text-error-red"></i>
+                        </div>
+                        <div class="principle-title">以兒童為中心</div>
+                        <div class="principle-subtitle">Child-Centric</div>
+                        <p class="principle-description">
+                            所有設計都應考慮兒童的認知發展、學習方式和興趣，創造引人入勝且易於理解的體驗。
+                        </p>
+                        <div class="principle-details">
+                            <h4>關鍵特點：</h4>
+                            <ul>
+                                <li>適齡的內容和語言</li>
+                                <li>符合兒童認知發展的互動方式</li>
+                                <li>考慮不同年齡層的需求差異</li>
+                                <li>促進主動學習和探索</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="principle-card">
+                        <div class="principle-icon bg-highlight-yellow">
+                            <i data-lucide="gamepad-2" class="icon-lg text-warning-yellow"></i>
+                        </div>
+                        <div class="principle-title">趣味性與互動性</div>
+                        <div class="principle-subtitle">Playful & Interactive</div>
+                        <p class="principle-description">
+                            透過生動的視覺元素、動畫和互動，激發兒童的學習興趣，讓學習過程充滿樂趣。
+                        </p>
+                        <div class="principle-details">
+                            <h4>關鍵特點：</h4>
+                            <ul>
+                                <li>豐富的動畫效果</li>
+                                <li>互動式學習元素</li>
+                                <li>遊戲化的學習體驗</li>
+                                <li>即時反饋機制</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="principle-card">
+                        <div class="principle-icon bg-accent-blue">
+                            <i data-lucide="shield" class="icon-lg text-info-blue"></i>
+                        </div>
+                        <div class="principle-title">信任與安全</div>
+                        <div class="principle-subtitle">Trustworthy & Safe</div>
+                        <p class="principle-description">
+                            建立清晰、簡潔的介面，確保內容的適齡性與安全性，讓家長放心。
+                        </p>
+                        <div class="principle-details">
+                            <h4>關鍵特點：</h4>
+                            <ul>
+                                <li>內容安全性保障</li>
+                                <li>隱私保護措施</li>
+                                <li>清晰的操作指引</li>
+                                <li>家長監控功能</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="principle-card">
+                        <div class="principle-icon bg-light-orange">
+                            <i data-lucide="users" class="icon-lg text-primary-orange"></i>
+                        </div>
+                        <div class="principle-title">易於理解與操作</div>
+                        <div class="principle-subtitle">Approachable & Usable</div>
+                        <p class="principle-description">
+                            介面設計直觀，操作流程簡單，降低兒童和家長的使用門檻。
+                        </p>
+                        <div class="principle-details">
+                            <h4>關鍵特點：</h4>
+                            <ul>
+                                <li>直觀的使用者介面</li>
+                                <li>簡化的操作流程</li>
+                                <li>清楚的視覺層次</li>
+                                <li>容錯性設計</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="principle-card">
+                        <div class="principle-icon bg-soft-pink">
+                            <i data-lucide="layers" class="icon-lg text-error-red"></i>
+                        </div>
+                        <div class="principle-title">一致性與可預測性</div>
+                        <div class="principle-subtitle">Consistent & Predictable</div>
+                        <p class="principle-description">
+                            在視覺風格、互動模式和元件使用上保持高度一致，提升用戶的學習效率和使用體驗。
+                        </p>
+                        <div class="principle-details">
+                            <h4>關鍵特點：</h4>
+                            <ul>
+                                <li>統一的設計語言</li>
+                                <li>標準化的元件庫</li>
+                                <li>一致的互動模式</li>
+                                <li>可預測的系統回應</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="principle-card">
+                        <div class="principle-icon bg-accent-blue">
+                            <i data-lucide="smartphone" class="icon-lg text-info-blue"></i>
+                        </div>
+                        <div class="principle-title">響應式與適應性</div>
+                        <div class="principle-subtitle">Responsive & Adaptive</div>
+                        <p class="principle-description">
+                            設計應能適應不同設備和螢幕尺寸，提供流暢的跨平台體驗。
+                        </p>
+                        <div class="principle-details">
+                            <h4>關鍵特點：</h4>
+                            <ul>
+                                <li>跨設備一致體驗</li>
+                                <li>靈活的佈局系統</li>
+                                <li>適應性內容顯示</li>
+                                <li>效能優化</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Palette Tab -->
+        <div id="colors" class="tab-content">
+            <div class="space-y-8">
+                <div>
+                    <h3 class="mb-6">主要品牌色 Primary Brand Colors</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                        <div class="color-card">
+                            <div class="color-preview bg-primary-orange"></div>
+                            <div class="color-info">
+                                <div class="color-name">主要橙色 Primary Orange</div>
+                                <div class="color-values">#f7941e</div>
+                                <div class="color-values text-text-gray">RGB(247, 148, 30)</div>
+                                <div class="color-usage">主要行動呼籲、品牌元素、重要連結</div>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-preview bg-light-orange"></div>
+                            <div class="color-info">
+                                <div class="color-name">淺橙色 Light Orange</div>
+                                <div class="color-values">#fde9da</div>
+                                <div class="color-values text-text-gray">RGB(253, 233, 218)</div>
+                                <div class="color-usage">背景、次要按鈕、裝飾性元素</div>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-preview bg-highlight-yellow"></div>
+                            <div class="color-info">
+                                <div class="color-name">亮黃色 Highlight Yellow</div>
+                                <div class="color-values">#fff3c4</div>
+                                <div class="color-values text-text-gray">RGB(255, 243, 196)</div>
+                                <div class="color-usage">突出顯示、警告提示、互動反饋</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="mb-6">輔助色 Secondary Colors</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                        <div class="color-card">
+                            <div class="color-preview bg-accent-blue"></div>
+                            <div class="color-info">
+                                <div class="color-name">藍色強調 Accent Blue</div>
+                                <div class="color-values">#cce6f9</div>
+                                <div class="color-values text-text-gray">RGB(204, 230, 249)</div>
+                                <div class="color-usage">圖示、圖表、次要區塊背景</div>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-preview bg-teal-section"></div>
+                            <div class="color-info">
+                                <div class="color-name">青色區塊 Teal Section</div>
+                                <div class="color-values">#3e7b94</div>
+                                <div class="color-values text-text-gray">RGB(62, 123, 148)</div>
+                                <div class="color-usage">區塊背景、沉穩學習氛圍</div>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-preview bg-soft-pink"></div>
+                            <div class="color-info">
+                                <div class="color-name">柔和粉色 Soft Pink</div>
+                                <div class="color-values">#ffe2e2</div>
+                                <div class="color-values text-text-gray">RGB(255, 226, 226)</div>
+                                <div class="color-usage">裝飾性元素、插圖、特定主題背景</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="mb-6">語意色 Semantic Colors</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                        <div class="color-card">
+                            <div class="color-preview bg-success-green"></div>
+                            <div class="color-info">
+                                <div class="color-name">成功綠 Success Green</div>
+                                <div class="color-values">#4CAF50</div>
+                                <div class="color-values text-text-gray">RGB(76, 175, 80)</div>
+                                <div class="color-usage">操作成功、完成、正面回饋</div>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-preview bg-warning-yellow"></div>
+                            <div class="color-info">
+                                <div class="color-name">警告黃 Warning Yellow</div>
+                                <div class="color-values">#FFC107</div>
+                                <div class="color-values text-text-gray">RGB(255, 193, 7)</div>
+                                <div class="color-usage">需要注意、潛在問題、輕微錯誤</div>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-preview bg-error-red"></div>
+                            <div class="color-info">
+                                <div class="color-name">錯誤紅 Error Red</div>
+                                <div class="color-values">#F44336</div>
+                                <div class="color-values text-text-gray">RGB(244, 67, 54)</div>
+                                <div class="color-usage">操作失敗、嚴重錯誤、立即處理</div>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-preview bg-info-blue"></div>
+                            <div class="color-info">
+                                <div class="color-name">資訊藍 Info Blue</div>
+                                <div class="color-values">#2196F3</div>
+                                <div class="color-values text-text-gray">RGB(33, 150, 243)</div>
+                                <div class="color-usage">提供一般資訊、提示、說明</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typography Tab -->
+        <div id="typography" class="tab-content">
+            <div class="space-y-8">
+                <h3 class="mb-6">字體層級系統 Typography Scale</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 mb-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">字體家族 Font Family</div>
+                        </div>
+                        <div class="card-content space-y-4">
+                            <div>
+                                <p class="text-sm text-text-gray mb-2">主要字體 Primary Font</p>
+                                <p class="text-lg" style="font-family: 'Poppins', sans-serif;">Poppins - 用於標題和重要內容</p>
+                                <p class="text-sm text-text-gray" style="font-family: 'Courier New', monospace;">font-family: 'Poppins', sans-serif</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-text-gray mb-2">輔助字體 Secondary Font</p>
+                                <p class="text-lg" style="font-family: 'Montserrat', sans-serif;">Montserrat - 用於特殊標題</p>
+                                <p class="text-sm text-text-gray" style="font-family: 'Courier New', monospace;">font-family: 'Montserrat', sans-serif</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">對比度要求 Contrast Requirements</div>
+                        </div>
+                        <div class="card-content space-y-4">
+                            <div class="flex justify-between items-center p-4 bg-light-orange rounded-lg">
+                                <span class="text-text-black font-medium">小型文字 &lt;18pt</span>
+                                <span class="text-text-gray">4.5:1</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-accent-blue rounded-lg">
+                                <span class="text-text-black font-medium">大型文字 ≥18pt</span>
+                                <span class="text-text-gray">3:1</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-highlight-yellow rounded-lg">
+                                <span class="text-text-black font-medium">圖形元件</span>
+                                <span class="text-text-gray">3:1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="mb-6">響應式字體大小 Responsive Typography</h3>
+                    <div class="space-y-6">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="grid grid-cols-1 lg:grid-cols-3 items-center">
+                                    <div style="grid-column: span 2;">
+                                        <h1>H1 主標題 - 快樂學習，成就未來</h1>
+                                        <div class="text-sm text-text-gray mt-2">
+                                            字重: Bold (700) | 行高: 1.2
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 text-center text-sm">
+                                        <div>
+                                            <div class="font-medium text-text-gray">桌面</div>
+                                            <div style="font-family: 'Courier New', monospace;">56px</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-text-gray">平板</div>
+                                            <div style="font-family: 'Courier New', monospace;">48px</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-text-gray">手機</div>
+                                            <div style="font-family: 'Courier New', monospace;">40px</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="grid grid-cols-1 lg:grid-cols-3 items-center">
+                                    <div style="grid-column: span 2;">
+                                        <h2>H2 次標題 - 快樂學習，成就未來</h2>
+                                        <div class="text-sm text-text-gray mt-2">
+                                            字重: Bold (700) | 行高: 1.25
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 text-center text-sm">
+                                        <div>
+                                            <div class="font-medium text-text-gray">桌面</div>
+                                            <div style="font-family: 'Courier New', monospace;">40px</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-text-gray">平板</div>
+                                            <div style="font-family: 'Courier New', monospace;">36px</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-text-gray">手機</div>
+                                            <div style="font-family: 'Courier New', monospace;">32px</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="grid grid-cols-1 lg:grid-cols-3 items-center">
+                                    <div style="grid-column: span 2;">
+                                        <h3>H3 三級標題 - 快樂學習，成就未來</h3>
+                                        <div class="text-sm text-text-gray mt-2">
+                                            字重: Semi-bold (600) | 行高: 1.3
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 text-center text-sm">
+                                        <div>
+                                            <div class="font-medium text-text-gray">桌面</div>
+                                            <div style="font-family: 'Courier New', monospace;">28px</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-text-gray">平板</div>
+                                            <div style="font-family: 'Courier New', monospace;">24px</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-text-gray">手機</div>
+                                            <div style="font-family: 'Courier New', monospace;">24px</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons Tab -->
+        <div id="buttons" class="tab-content">
+            <div class="space-y-8">
+                <h3 class="mb-6">按鈕變體 Button Variants</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">主要按鈕 Primary Button</div>
+                            <p class="text-sm text-text-gray">用於最重要、最優先的行動呼籲</p>
+                        </div>
+                        <div class="card-content space-y-4">
+                            <div class="flex space-x-4" style="flex-wrap: wrap; gap: 0.75rem;">
+                                <button class="btn btn-primary btn-small">小型按鈕</button>
+                                <button class="btn btn-primary">中型按鈕</button>
+                                <button class="btn btn-primary btn-large">大型按鈕</button>
+                            </div>
+                            <div class="flex space-x-4" style="flex-wrap: wrap; gap: 0.75rem;">
+                                <button class="btn btn-primary" disabled>禁用狀態</button>
+                                <button class="btn btn-primary">立即學習</button>
+                            </div>
+                            <div class="flex space-x-4" style="flex-wrap: wrap; gap: 0.75rem;">
+                                <button class="btn btn-primary">
+                                    <i data-lucide="play" class="icon-sm" style="margin-right: 0.5rem;"></i>
+                                    開始課程
+                                </button>
+                                <button class="btn btn-primary">
+                                    <i data-lucide="download" class="icon-sm" style="margin-right: 0.5rem;"></i>
+                                    下載教材
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">次要按鈕 Secondary Button</div>
+                            <p class="text-sm text-text-gray">用於次要行動或補充主要行動</p>
+                        </div>
+                        <div class="card-content space-y-4">
+                            <div class="flex space-x-4" style="flex-wrap: wrap; gap: 0.75rem;">
+                                <button class="btn btn-secondary btn-small">小型按鈕</button>
+                                <button class="btn btn-secondary">中型按鈕</button>
+                                <button class="btn btn-secondary btn-large">大型按鈕</button>
+                            </div>
+                            <div class="flex space-x-4" style="flex-wrap: wrap; gap: 0.75rem;">
+                                <button class="btn btn-secondary" disabled>禁用狀態</button>
+                                <button class="btn btn-secondary">了解更多</button>
+                            </div>
+                            <div class="flex space-x-4" style="flex-wrap: wrap; gap: 0.75rem;">
+                                <button class="btn btn-secondary">
+                                    <i data-lucide="settings" class="icon-sm" style="margin-right: 0.5rem;"></i>
+                                    設定
+                                </button>
+                                <button class="btn btn-secondary">
+                                    <i data-lucide="heart" class="icon-sm" style="margin-right: 0.5rem;"></i>
+                                    收藏
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forms Tab -->
+        <div id="forms" class="tab-content">
+            <div class="space-y-8">
+                <h3 class="mb-6">表單輸入元件 Form Input Components</h3>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">學員註冊表單</div>
+                        <p class="text-text-gray">請填寫以下資訊完成註冊</p>
+                    </div>
+                    <div class="card-content">
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <div style="margin-right: 1.5rem;">
+                                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">姓名 *</label>
+                                    <input 
+                                        type="text" 
+                                        id="name" 
+                                        placeholder="請輸入您的姓名"
+                                        style="width: 100%; padding: 0.5rem 0.75rem; border: 1px solid hsl(var(--light-orange)); border-radius: 0.375rem; font-size: 0.875rem;"
+                                    />
+                                </div>
+                                <div>
+                                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">電子郵件 *</label>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        placeholder="example@email.com"
+                                        style="width: 100%; padding: 0.5rem 0.75rem; border: 1px solid hsl(var(--light-orange)); border-radius: 0.375rem; font-size: 0.875rem;"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="password" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">密碼 *</label>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    placeholder="至少6個字符"
+                                    style="width: 100%; padding: 0.5rem 0.75rem; border: 1px solid hsl(var(--light-orange)); border-radius: 0.375rem; font-size: 0.875rem;"
+                                />
+                            </div>
+
+                            <div class="flex items-center" style="gap: 0.5rem;">
+                                <input type="checkbox" id="terms" style="margin: 0;">
+                                <label for="terms" class="text-sm">
+                                    我同意 <span class="text-primary-orange" style="text-decoration: underline; cursor: pointer;">服務條款</span> 和 
+                                    <span class="text-primary-orange" style="text-decoration: underline; cursor: pointer; margin-left: 0.25rem;">隱私政策</span>
+                                </label>
+                            </div>
+
+                            <div class="flex" style="gap: 1rem;">
+                                <button type="submit" class="btn btn-primary" style="flex: 1;">
+                                    完成註冊
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    取消
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tab -->
+        <div id="navigation" class="tab-content">
+            <div class="space-y-8">
+                <h3 class="mb-6">導航組件 Navigation Components</h3>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">頂部導航欄示例</div>
+                    </div>
+                    <div class="card-content" style="padding: 0;">
+                        <nav class="bg-white shadow-light">
+                            <div style="max-width: 1280px; margin: 0 auto; padding: 0 1rem;">
+                                <div class="flex justify-between items-center" style="height: 4rem;">
+                                    <div class="flex items-center">
+                                        <div class="logo-icon">
+                                            <i data-lucide="book-open" class="icon text-white"></i>
+                                        </div>
+                                        <span class="logo-text" style="margin-left: 0.5rem;">快樂學習</span>
+                                    </div>
+                                    <div class="flex items-center space-x-4">
+                                        <a href="#" class="text-text-gray" style="font-weight: 500; transition: color var(--transition-normal);">首頁</a>
+                                        <a href="#" class="text-text-gray" style="font-weight: 500; transition: color var(--transition-normal);">課程</a>
+                                        <a href="#" class="text-text-gray" style="font-weight: 500; transition: color var(--transition-normal);">師資</a>
+                                        <a href="#" class="text-text-gray" style="font-weight: 500; transition: color var(--transition-normal);">關於我們</a>
+                                        <button class="btn btn-primary">開始學習</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">麵包屑導航示例</div>
+                    </div>
+                    <div class="card-content">
+                        <nav aria-label="Breadcrumb">
+                            <ol class="flex items-center text-sm" style="gap: 0.5rem;">
+                                <li><a href="#" class="text-primary-orange">首頁</a></li>
+                                <li><i data-lucide="chevron-right" class="icon-sm text-text-gray"></i></li>
+                                <li><a href="#" class="text-primary-orange">課程</a></li>
+                                <li><i data-lucide="chevron-right" class="icon-sm text-text-gray"></i></li>
+                                <li><a href="#" class="text-primary-orange">英語課程</a></li>
+                                <li><i data-lucide="chevron-right" class="icon-sm text-text-gray"></i></li>
+                                <li><span class="text-text-gray font-medium">基礎英語</span></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-3">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center">
+                            <i data-lucide="book-open" class="icon text-white"></i>
+                        </div>
+                        <span style="margin-left: 0.5rem; font-size: 1.125rem; font-weight: 700; color: hsl(var(--text-black));">
+                            快樂學習
+                        </span>
+                    </div>
+                    <p class="text-text-gray text-sm">
+                        專為兒童學習體驗設計的完整設計系統
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-text-black mb-4">設計原則</h4>
+                    <ul class="space-y-4 text-sm text-text-gray">
+                        <li class="flex items-center">
+                            <i data-lucide="users" class="icon-sm text-primary-orange" style="margin-right: 0.5rem;"></i>
+                            以兒童為中心
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="lightbulb" class="icon-sm text-primary-orange" style="margin-right: 0.5rem;"></i>
+                            趣味性與互動性
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="smartphone" class="icon-sm text-primary-orange" style="margin-right: 0.5rem;"></i>
+                            響應式設計
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-text-black mb-4">技術規範</h4>
+                    <div class="space-y-4 text-sm">
+                        <div class="badge">React + TypeScript</div>
+                        <div class="badge">Tailwind CSS</div>
+                        <div class="badge">Shadcn/ui</div>
+                        <div class="badge">WCAG 2.1 AA</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid hsl(var(--light-orange)); padding-top: 1.5rem; margin-top: 2rem;" class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-text-gray text-sm">
+                    © 2025 Manus AI. 版權所有.
+                </p>
+                <p class="text-text-gray text-sm" style="margin-top: 0.5rem;">
+                    最後更新：2025年7月25日
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Tab functionality
+        function setActiveTab(tabId) {
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Add active class to selected tab and content
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+            
+            // Re-initialize icons after content change
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+        }
+        
+        // Initialize icons on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+        
+        // Add hover effects for buttons and cards
+        document.addEventListener('DOMContentLoaded', function() {
+            // Button hover effects
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    if (!this.disabled) {
+                        this.style.transform = 'translateY(-1px)';
+                        this.style.boxShadow = 'var(--shadow-medium)';
+                    }
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            // Card hover effects
+            document.querySelectorAll('.card, .principle-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = 'var(--shadow-medium)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'var(--shadow-light)';
+                });
+            });
+            
+            // Navigation link hover effects
+            document.querySelectorAll('a').forEach(link => {
+                if (link.classList.contains('text-text-gray')) {
+                    link.addEventListener('mouseenter', function() {
+                        this.style.color = 'hsl(var(--primary-orange))';
+                    });
+                    
+                    link.addEventListener('mouseleave', function() {
+                        this.style.color = 'hsl(var(--text-gray))';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
 </html>
